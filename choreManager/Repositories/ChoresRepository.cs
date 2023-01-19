@@ -55,4 +55,13 @@ public class ChoresRepository
             return chore;
         }, new { id }).FirstOrDefault();
     }
+
+    internal void Remove(int id)
+    {
+        string sql = @"
+        DELETE FROM chores
+        WHERE id = @id;
+        ";
+        _db.Execute(sql, new { id });
+    }
 }
