@@ -64,4 +64,19 @@ public class ChoresRepository
         ";
         _db.Execute(sql, new { id });
     }
+
+    // internal bool Update(Chore update)
+    // {
+    //     string sql = @"
+    //     UPDATE chores
+    //     SET
+    //     task = @task,
+    //     coverImg = @coverImg,
+    //     completed = @completed
+    //     archived = @archived,
+    //     WHERE id = @id;
+    //     ";
+    //     int rows = _db.Execute(sql, update);
+    //     return rows > 0;
+    // }
 }

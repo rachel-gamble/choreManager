@@ -77,6 +77,4 @@ public class ChoresController : ControllerBase
             return BadRequest(e.Message);
         }
     }
-
-
 }
