@@ -23,4 +23,18 @@ public class ChoresService
         // return chores;
     }
 
+    internal Chore GetOne(int id, string userId)
+    {
+        Chore chore = _repo.GetOne(id);
+        if (chore == null)
+        {
+            throw new Exception("no chore at that id");
+        }
+        if (chore.Archived == true && chore.CreatorId != userId)
+        {
+            throw new Exception("you don't own that");
+        }
+        return chore;
+    }
+
 }

@@ -47,4 +47,20 @@ public class ChoresController : ControllerBase
         }
     }
 
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Chore>> GetOne(int id)
+    {
+        try
+        {
+            Account userInfo = await _auth0provider.GetUserInfoAsync<Account>(HttpContext);
+            Chore chore = _choresService.GetOne(id, userInfo?.Id);
+            return Ok(chore);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+
 }

@@ -10,10 +10,10 @@ public class ChoresRepository
         _db = db;
     }
 
-    
+
     internal Chore Create(Chore choreData)
     {
-        string sql =@"
+        string sql = @"
         INSERT INTO chores
         (task, coverImg, minutes, completed, creatorId)
         VALUES (@task, @coverImg, @minutes, @completed, @creatorId);
@@ -37,5 +37,22 @@ public class ChoresRepository
             return chore;
         }).ToList();
         return chores;
+    }
+
+    internal Chore GetOne(int id)
+    {
+        string sql = @"
+        SELECT
+        ch.*,
+        ac.*
+        FROM chores ch
+        JOIN accounts ac ON ac.id = ch.creatorId
+        WHERE ch.id = @id;
+        ";
+        return _db.Query<Chore, Account, Chore>(sql, (chore, account) =>
+        {
+            chore.Creator = account;
+            return chore;
+        }, new { id }).FirstOrDefault();
     }
 }
